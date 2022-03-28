@@ -1,0 +1,52 @@
+like example4/,  but using gnu hello app, with autotools build
+
+a. ingredients
+    example4
+    +- README             this file
+    +- default.nix        nix expression for this package
+    +- builder.sh         build script
+    +- hello-2.10.tar.gz  result of wget2 http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
+
+b. outputs
+    example4
+    +- result --symlink--> /nix/store/sfxpclf14x0x157bk0aiv0p0b22284sa-example4
+    
+    /nix/store
+    +- sfxpclf14x0x157bk0aiv0p0b22284sa-example4
+    +- x1mg3ffpabq8wysn9mvbpvqqlwhn9lim-example4.drv
+
+1. to enter bash shell for this example
+    $ cd ~/proj/nix/example4
+    $ nix-shell
+   shell environment will be the same as the environment
+   that would be used to build the package
+
+2. to build this package
+    $ cd ~/proj/nix/example4
+    $ nix-build
+
+   expect output like:
+     this derivation will be built:
+     /nix/store/x1mg3ffpabq8wysn9mvbpvqqlwhn9lim-example4.drv
+     building '/nix/store/x1mg3ffpabq8wysn9mvbpvqqlwhn9lim-example4.drv'
+     /nix/store/sfxpclf14x0x157bk0aiv0p0b22284sa-example4
+
+   also leaves symlink:
+     $ ls -l result
+     lrwxr-xr-x  1 roland  staff  52 Mar 25 17:13 result -> /nix/store/sfxpclf14x0x157bk0aiv0p0b22284sa-example4
+
+3. to inspect output
+    $ cd ~/proj/nix/example4
+    $ tree result
+    result
+    ├── bin
+    │   └── hello
+    └── share
+	├── info
+	│   └── hello.info
+	└── man
+	    └── man1
+		└── hello.1
+
+
+  

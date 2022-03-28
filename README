@@ -1,0 +1,7 @@
+nix-specific projects
+
+example1 - hello world in nix
+example2 - hello world in nix,  this time using gcc
+example3 - hello world in nix,  this time using clang
+example4 - hello world in nix,  using autotools build
+example5 - hello workd in nix,  generalized builder.sh

@@ -1,0 +1,81 @@
+like example2/,  but using clang instead of gcc
+
+a. ingredients
+    example3
+    +- README       this file
+    +- default.nix  nix expression for this package
+    +- builder.sh   build script
+    +- hello.cpp    
+
+b. outputs
+    example3
+    +- result --symlink--> /nix/store/rbngvyn2jmfxqyfny47k5nj8i0yay4hh-example3
+    
+    /nix/store
+    +- m5pqal04a4b0amzs7cy7ka81pr3cggkf-example3.drv
+    +- rbngvyn2jmfxqyfny47k5nj8i0yay4hh-example3
+
+1. to enter bash shell for this example
+    $ cd ~/proj/nix/example3
+    $ nix-shell
+   shell environment will be the same as the environment
+   that would be used to build the package
+
+2. to build this package
+    $ cd ~/proj/nix/example3
+    $ nix-build
+
+   expect output like:
+     this derivation will be built:
+     /nix/store/m5pqal04a4b0amzs7cy7ka81pr3cggkf-example3.drv
+     building '/nix/store/m5pqal04a4b0amzs7cy7ka81pr3cggkf-example3.drv'...
+     /nix/store/rbngvyn2jmfxqyfny47k5nj8i0yay4hh-example3
+
+   also leaves symlink:
+     $ ls -l result
+     lrwxr-xr-x  1 roland  staff  52 Mar 25 17:13 result -> /nix/store/rbngvyn2jmfxqyfny47k5nj8i0yay4hh-example3
+
+3. to inspect output
+    $ cd ~/proj/nix/example3
+
+   let's go through the output.  (note: reordered for clarity)
+    $ cat result/hello.env
+
+    NIX_BUILD_CORES=8
+    NIX_BUILD_TOP=/private/tmp/nix-build-example3.drv-0
+    NIX_STORE=/nix/store
+    NIX_LOG_FD=2
+
+   variables beginning with NIX_ generally come from nix configuration
+
+    HOME=/homeless-shelter
+    PATH=/path-not-set
+   
+   HOME, PATH deliberately set to not-to-be-used values.
+   We want the output of build to be a function of inputs that are explicitly identified
+
+    PWD=/private/tmp/nix-build-example3.drv-0
+    TEMPDIR=/private/tmp/nix-build-example3.drv-0
+    TMPDIR=/private/tmp/nix-build-example3.drv-0
+    TEMP=/private/tmp/nix-build-example3.drv-0
+    TMP=/private/tmp/nix-build-example3.drv-0
+
+   build occurs in a private, temporary directory somewhere.
+   /private probably doesn't exist.  Presumably nix does something user-chroot-y
+
+    SHLVL=1
+    TERM=xterm-256color
+    _=/nix/store/8405gyg05szs83h883v84ds9h6x0i2ir-coreutils-9.0/bin/env
+   bash variables, self-explanatory.  including for completeness
+
+    name=example3
+    builder=/nix/store/czipazlkvql7n201a9l1jks8kzs0dlqa-bash-5.1-p16/bin/bash
+    coreutils=/nix/store/8405gyg05szs83h883v84ds9h6x0i2ir-coreutils-9.0
+    system=aarch64-darwin
+   each member of derivation { ... } gets passed to builder.sh as its own shell variable
+
+    out=/nix/store/rbngvyn2jmfxqyfny47k5nj8i0yay4hh-example3
+   where to put output.  this will be a unique location in the nix store;
+   it's still up to builder script to create this 
+
+  
