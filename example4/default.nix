@@ -18,9 +18,8 @@ derivation {
   inherit bintools;
   inherit stdenv;
 
-  # need next two things on darwin
-  gcc = clang;
-  binutils = clang.bintools.bintools_bin;
+  gcc = if builtins.currentSystem == "aarch64-darwin" then clang else gcc;
+  binutils = if builtins.currentSystem == "aarch64-darwin" then clang.bintools.bintools_bin else binutils;
 
   src = ./hello-2.10.tar.gz;
   system = builtins.currentSystem;
