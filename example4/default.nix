@@ -15,7 +15,7 @@ derivation {
   inherit gnutar;
   inherit gzip;
   inherit coreutils;
-  inherit bintools;
+  #inherit bintools;
   inherit stdenv;
 
   gcc = if builtins.currentSystem == "aarch64-darwin" then clang else gcc;
