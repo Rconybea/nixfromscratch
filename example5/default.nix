@@ -10,7 +10,7 @@ derivation {
   #
   # note: clang, clang.bintools.bintools_bin needed for darwin
   #
-  buildInputs = (if builtins.currentSystem == "aarch64-darwin" then [ clang clang.bintools.bintools_bin ] else [ gcc binutils-unwrapped ]) ++ [ gnumake gawk gnugrep gnused gnutar gzip coreutils bintools stdenv ];
+  buildInputs = (if builtins.currentSystem == "aarch64-darwin" then [ clang clang.bintools.bintools_bin ] else [ gcc binutils-unwrapped ]) ++ [ gnumake gawk gnugrep gnused gnutar gzip coreutils stdenv ];
 
   src = ./hello-2.10.tar.gz;
   system = builtins.currentSystem;
