@@ -4,7 +4,8 @@ pkgs: attrs:
   let defaultAttrs = {
     builder = "${bash}/bin/bash";
     args = [ ./builder.sh ];
-    baseInputs = (if builtins.currentSystem == "aarch64-darwin" then [ clang clang.bintools.bintools_bin ] else [ gcc binutils-unwrapped ]) ++ [ gnumake gawk gnugrep gnused gnutar gzip coreutils stdenv ];
+    baseInputs = (if builtins.currentSystem == "aarch64-darwin" then [ clang clang.bintools.bintools_bin ] else [ gcc binutils-unwrapped ])
+                   ++ [ gnumake gawk gnugrep gnused gnutar gzip coreutils stdenv findutils ];
     buildInputs = [];
     system = builtins.currentSystem;
   };

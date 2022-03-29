@@ -50,6 +50,13 @@ mkdir ${out}
 make
 make install
 
+# fixup:
+if [[ ${system} -eq "aarch64-darwin" ]]; then
+    :
+else
+    find ${out} -type f -exec patchelf --shrink-rpath '{}' \;
+    #find ${out} -type f -exec patchelf --shrink-rpath '{}' \; -exec strip '{}' \; 2>/dev/null
+fi
 #${coreutils}/bin/env > ${out}/hello.env
 
 #echo "out=${out}"
