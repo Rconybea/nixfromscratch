@@ -6,9 +6,10 @@
 #echo "system=${system}"
 #echo "bintools=${bintools}"
 
-PATH=${gnumake}/bin:${gcc}/bin:${binutils}/bin:${gawk}/bin:${gnugrep}/bin:${gnused}/bin:${gnutar}/bin:${gzip}/bin:${coreutils}/bin:
+PATH=${gnumake}/bin:${gcc}/bin:${binutils}/bin:${gawk}/bin:${gnugrep}/bin:${gnused}/bin:${gnutar}/bin:${gzip}/bin:${coreutils}/bin:${stdenv}/bin:
 export PATH
 
+echo $PATH
 #/usr/bin/env
 
 #${ls} ${bintools}/bin
